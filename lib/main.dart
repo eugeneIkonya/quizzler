@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:quizzler/quiz_brain.dart';
+
+QuizBrain quizBrain = QuizBrain();
 
 void main() {
   runApp(const MainApp());
@@ -39,15 +42,15 @@ class _QuizPageState extends State<QuizPage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Expanded(
+        Expanded(
           flex: 5,
           child: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: Center(
               child: Text(
-                'This is where text will go',
+                quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 25,
                   color: Colors.white,
                 ),
@@ -60,11 +63,24 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(15.0),
             child: TextButton(
               onPressed: () {
+                bool correctAnswer = quizBrain.getQuestionAnswer();
+                if (correctAnswer == true) {
+                  scoreKeeper.add(
+                    const Icon(
+                      Icons.check,
+                      color: Colors.green,
+                    ),
+                  );
+                } else {
+                  scoreKeeper.add(
+                    const Icon(
+                      Icons.close,
+                      color: Colors.red,
+                    ),
+                  );
+                }
                 setState(() {
-                  scoreKeeper.add(const Icon(
-                    Icons.check,
-                    color: Colors.green,
-                  ));
+                  quizBrain.nextQuestion();
                 });
               },
               style: const ButtonStyle(
@@ -85,11 +101,24 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(15.0),
             child: TextButton(
               onPressed: () {
+                bool correctAnswer = quizBrain.getQuestionAnswer();
+                if (correctAnswer == false) {
+                  scoreKeeper.add(
+                    const Icon(
+                      Icons.check,
+                      color: Colors.green,
+                    ),
+                  );
+                } else {
+                  scoreKeeper.add(
+                    const Icon(
+                      Icons.close,
+                      color: Colors.red,
+                    ),
+                  );
+                }
                 setState(() {
-                  scoreKeeper.add(const Icon(
-                    Icons.close,
-                    color: Colors.red,
-                  ));
+                  quizBrain.nextQuestion();
                 });
               },
               style: const ButtonStyle(

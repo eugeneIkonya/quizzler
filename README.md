@@ -1,3 +1,3 @@
 # quizzler
 
-A new Flutter project.
+A Flutter  quiz project
